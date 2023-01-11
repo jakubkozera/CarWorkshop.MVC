@@ -18,6 +18,18 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult About()
+    {
+        var model = new About()
+        {
+            Title = "CarWorkshop application",
+            Description = "Some description",
+            Tags = new List<string>() { "car", "app", "free" }
+        };
+
+        return View(model);
+    }
+
     public IActionResult Privacy()
     {
         var model = new List<Person>()
