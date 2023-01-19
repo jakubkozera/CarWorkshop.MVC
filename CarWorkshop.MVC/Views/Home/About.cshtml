@@ -1,7 +1,7 @@
 ﻿@model About
 
 <h1>@Model.Title</h1>
-<h2>@Model.Description</h2>
+<div class="alert alert-danger">@Model.Description</div>
 
 <p>Tags:</p>
 
@@ -11,3 +11,21 @@
         <li>@tag</li>
     }
 </ul>
+
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-4 border">
+            Column
+        </div>
+        <div class="col-md-1 border">
+            Column
+        </div>
+        <div class="col-md-1 border">
+            Column
+        </div>
+        <div class="col-md-6 border">
+            Column
+        </div>
+    </div>
+</div>
