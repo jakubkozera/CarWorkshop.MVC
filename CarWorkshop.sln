@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarWorkshop.MVC", "CarWorkshop.MVC\CarWorkshop.MVC.csproj", "{0F86670D-448D-4F3A-B105-1513A9FDFB54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWorkshop.Domain", "CarWorkshop.Domain\CarWorkshop.Domain.csproj", "{640D245E-C60E-4637-A890-DFCE36F8C5E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWorkshop.Application", "CarWorkshop.Application\CarWorkshop.Application.csproj", "{D8425894-4ECD-4638-8A3F-744F216884DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarWorkshop.Infrastructure", "CarWorkshop.Infrastructure\CarWorkshop.Infrastructure.csproj", "{2C9A918A-496F-4966-A6E4-0CF6166F8737}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +21,23 @@ Global
 		{0F86670D-448D-4F3A-B105-1513A9FDFB54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F86670D-448D-4F3A-B105-1513A9FDFB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F86670D-448D-4F3A-B105-1513A9FDFB54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{640D245E-C60E-4637-A890-DFCE36F8C5E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{640D245E-C60E-4637-A890-DFCE36F8C5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{640D245E-C60E-4637-A890-DFCE36F8C5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{640D245E-C60E-4637-A890-DFCE36F8C5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8425894-4ECD-4638-8A3F-744F216884DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8425894-4ECD-4638-8A3F-744F216884DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8425894-4ECD-4638-8A3F-744F216884DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8425894-4ECD-4638-8A3F-744F216884DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C9A918A-496F-4966-A6E4-0CF6166F8737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9A918A-496F-4966-A6E4-0CF6166F8737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9A918A-496F-4966-A6E4-0CF6166F8737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9A918A-496F-4966-A6E4-0CF6166F8737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6705D1D-FE9A-4D90-B2BB-F8C672944A5C}
 	EndGlobalSection
 EndGlobal
