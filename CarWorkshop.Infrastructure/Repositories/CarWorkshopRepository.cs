@@ -18,6 +18,9 @@ namespace CarWorkshop.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Domain.Entities.CarWorkshop>> GetAll()
+            => await _dbContext.CarWorkshops.ToListAsync();
+
         public Task<Domain.Entities.CarWorkshop?> GetByName(string name)
          => _dbContext.CarWorkshops.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
     }
