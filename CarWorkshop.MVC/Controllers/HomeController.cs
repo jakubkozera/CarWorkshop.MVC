@@ -18,6 +18,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult NoAccess()
+    {
+        return View();
+    }
+
     public IActionResult About()
     {
         var model = new About()

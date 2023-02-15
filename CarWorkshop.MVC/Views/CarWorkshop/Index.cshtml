@@ -19,7 +19,10 @@
                 <h6 class="card-subtitle mb-2 text-muted">@item.PhoneNumber</h6>
                 <p class="card-text">@item.Description</p>
                 <a class="btn btn-primary" asp-controller="CarWorkshop" asp-action="Details" asp-route-encodedName="@item.EncodedName">Details</a>
-                <a class="btn btn-outline-secondary" asp-controller="CarWorkshop" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
+                @if (item.IsEditable)
+                {
+                    <a class="btn btn-outline-secondary" asp-controller="CarWorkshop" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
+                }
             </div>
         </div>
     }
