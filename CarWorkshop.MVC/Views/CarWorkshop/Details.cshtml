@@ -48,6 +48,11 @@
         </dd>
     </dl>
 </div>
+
+<h3>Services:</h3>
+
+<div id="services" class="row" data-encoded-name="@Model.EncodedName"></div>
+
 <div>
     @if (Model.IsEditable)
     {
@@ -55,3 +60,7 @@
     }
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    <script src="~/js/CarWorkshop/Details.js"></script>
+}
