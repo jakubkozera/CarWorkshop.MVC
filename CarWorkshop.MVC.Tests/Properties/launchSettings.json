@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CarWorkshop.MVC.Tests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50246;http://localhost:50247"
+    }
+  }
+}
