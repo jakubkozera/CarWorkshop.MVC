@@ -1,0 +1,102 @@
+name: CarWorkshop
+
+trigger: [master]
+
+stages: 
+    - stage: Build
+      jobs:
+          - job: build_and_test
+            variables:
+              buildConfiguration: Release
+            displayName: Build and test
+            steps:
+            - task: UseDotNet@2
+              inputs:
+                packageType: 'sdk'
+                version: '7.0.x'
+            - task: DotNetCoreCLI@2
+              displayName: 'dotnet restore'
+              inputs:
+                command: 'restore'
+                feedsToUse: 'select'
+            - task: DotNetCoreCLI@2
+              displayName: 'dotnet build'
+              inputs:
+                command: 'build'
+                arguments: '--configuration $(buildConfiguration)'
+            - task: DotNetCoreCLI@2
+              displayName: 'dotnet test'
+              inputs:
+                command: 'test'
+            - task: DotNetCoreCLI@2
+              condition: ne(variables['Build.Reason'], 'PullRequest')
+              inputs:
+                command: 'publish'
+                publishWebProjects: true
+                arguments: '--no-build --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration)'
+            - task: PublishBuildArtifacts@1
+              condition: ne(variables['Build.Reason'], 'PullRequest')
+              inputs:
+                PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+                ArtifactName: 'carworkshop-app'
+                publishLocation: 'Container'
+    - stage: Deploy_to_dev
+      condition: ne(variables['Build.Reason'], 'PullRequest')
+      displayName: Dev
+      dependsOn: Build
+
+      jobs:
+        - deployment: DeploymentDev
+          displayName: Deploy to dev
+          environment: Dev
+          variables:
+            - group: CarWorkshop-dev
+          strategy:
+           runOnce:
+             deploy:
+              steps:
+              - task: DownloadBuildArtifacts@1
+                inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'carworkshop-app'
+                  downloadPath: '$(System.ArtifactsDirectory)'
+              - task: AzureWebApp@1
+                inputs:
+                  azureSubscription: 'vses'
+                  appType: 'webApp'
+                  appName: 'carworkshop-dev'
+                  package: '$(System.ArtifactsDirectory)/carworkshop-app/CarWorkshop.MVC.zip'
+                  appSettings: '-ASPNETCORE_ENVIRONMENT Development -ConnectionStrings:CarWorkshop "$(ConnectionString)"'
+                  deploymentMethod: 'zipDeploy'
+    - stage: Deploy_to_prod
+      displayName: Prod
+      dependsOn: Deploy_to_dev
+
+      jobs:
+        - deployment: DeploymentProd
+          displayName: Deploy to prod
+          environment: Prod
+          variables:
+            - group: CarWorkshop-prod
+          strategy:
+           runOnce:
+             deploy:
+              steps:
+              - task: DownloadBuildArtifacts@1
+                inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'carworkshop-app'
+                  downloadPath: '$(System.ArtifactsDirectory)'
+              - task: AzureWebApp@1
+                inputs:
+                  azureSubscription: 'vses'
+                  appType: 'webApp'
+                  appName: 'carworkshop-prod'
+                  package: '$(System.ArtifactsDirectory)/carworkshop-app/CarWorkshop.MVC.zip'
+                  appSettings: '-ConnectionStrings:CarWorkshop "$(ConnectionString)"'
+                  deploymentMethod: 'zipDeploy'
+
+
+               
