@@ -10,5 +10,6 @@ namespace CarWorkshop.Application.CarWorkshopService.Queries.GetCarWorkshopServi
     public class GetCarWorkshopServicesQuery : IRequest<IEnumerable<CarWorkshopServiceDto>>
     {
         public string EncodedName { get; set; } = default!;
+        public string SearchPhrase { get; set; } = default!;
     }
 }

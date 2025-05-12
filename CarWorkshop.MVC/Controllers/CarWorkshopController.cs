@@ -47,7 +47,7 @@ namespace CarWorkshop.MVC.Controllers
         {
             var dto = await _mediator.Send(new GetCarWorkshopByEncodedNameQuery(encodedName));
 
-            if(!dto.IsEditable)
+            if (!dto.IsEditable)
             {
                 return RedirectToAction("NoAccess", "Home");
             }
@@ -70,14 +70,14 @@ namespace CarWorkshop.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Owner")]
+        [Authorize()]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Owner")]
+        [Authorize()]
         public async Task<IActionResult> Create(CreateCarWorkshopCommand command)
         {
             if (!ModelState.IsValid)
@@ -90,11 +90,11 @@ namespace CarWorkshop.MVC.Controllers
 
             this.SetNotification("success", $"Created carworkshop: {command.Name}");
 
-            return RedirectToAction(nameof(Index)); 
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        [Authorize(Roles = "Owner")]
+        [Authorize()]
         [Route("CarWorkshop/CarWorkshopService")]
         public async Task<IActionResult> CreateCarWorkshopService(CreateCarWorkshopServiceCommand command)
         {
@@ -110,9 +110,9 @@ namespace CarWorkshop.MVC.Controllers
 
         [HttpGet]
         [Route("CarWorkshop/{encodedName}/CarWorkshopService")]
-        public async Task<IActionResult> GetCarWorkshopServices(string encodedName)
+        public async Task<IActionResult> GetCarWorkshopServices(string encodedName, [FromQuery] string searchPhrase)
         {
-            var data = await _mediator.Send(new GetCarWorkshopServicesQuery() { EncodedName = encodedName });
+            var data = await _mediator.Send(new GetCarWorkshopServicesQuery() { EncodedName = encodedName, SearchPhrase = searchPhrase });
             return Ok(data);
         }
 
