@@ -1,10 +1,5 @@
 ﻿using CarWorkshop.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarWorkshop.Infrastructure.Seeders
 {
@@ -20,49 +15,51 @@ namespace CarWorkshop.Infrastructure.Seeders
         {
             if (await _dbContext.Database.CanConnectAsync())
             {
-                // Delete and recreate the database
-                await _dbContext.Database.EnsureDeletedAsync();
                 await _dbContext.Database.EnsureCreatedAsync();
 
-                // Add seed data
-                var mazdaAso = new Domain.Entities.CarWorkshop()
+                // Check if Mazda ASO already exists
+                if (!await _dbContext.CarWorkshops.AnyAsync(cw => cw.Name == "Mazda ASO"))
                 {
-                    Name = "Mazda ASO",
-                    Description = "Mazda Authorized Service Outlet",
-                    ContactDetails = new()
+                    // Add seed data
+                    var mazdaAso = new Domain.Entities.CarWorkshop()
                     {
-                        City = "Kraków",
-                        Street = "Szewska 2",
-                        PostalCode = "30-001",
-                        PhoneNumber = "+48699222888"
-                    }
-                };
-                mazdaAso.EncodeName();
+                        Name = "Mazda ASO",
+                        Description = "Mazda Authorized Service Outlet",
+                        ContactDetails = new()
+                        {
+                            City = "Kraków",
+                            Street = "Szewska 2",
+                            PostalCode = "30-001",
+                            PhoneNumber = "+48699222888"
+                        }
+                    };
+                    mazdaAso.EncodeName();
 
-                mazdaAso.Services = new List<Domain.Entities.CarWorkshopService>()
-                {
-                    new Domain.Entities.CarWorkshopService()
+                    mazdaAso.Services = new List<Domain.Entities.CarWorkshopService>()
                     {
-                        Description = "Mazda 3 fluid change",
-                        Cost = "$ 500",
-                        CarWorkshop = mazdaAso
-                    },
-                    new Domain.Entities.CarWorkshopService()
-                    {
-                        Description = "Mazda 3 full service",
-                        Cost = "$ 700",
-                        CarWorkshop = mazdaAso
-                    },
-                    new Domain.Entities.CarWorkshopService()
-                    {
-                        Description = "Mazda 6 full service",
-                        Cost = "$ 900",
-                        CarWorkshop = mazdaAso
-                    }
-                };
+                        new Domain.Entities.CarWorkshopService()
+                        {
+                            Description = "Mazda 3 fluid change",
+                            Cost = "$ 500",
+                            CarWorkshop = mazdaAso
+                        },
+                        new Domain.Entities.CarWorkshopService()
+                        {
+                            Description = "Mazda 3 full service",
+                            Cost = "$ 700",
+                            CarWorkshop = mazdaAso
+                        },
+                        new Domain.Entities.CarWorkshopService()
+                        {
+                            Description = "Mazda 6 full service",
+                            Cost = "$ 900",
+                            CarWorkshop = mazdaAso
+                        }
+                    };
 
-                _dbContext.CarWorkshops.Add(mazdaAso);
-                await _dbContext.SaveChangesAsync();
+                    _dbContext.CarWorkshops.Add(mazdaAso);
+                    await _dbContext.SaveChangesAsync();
+                }
             }
         }
     }
