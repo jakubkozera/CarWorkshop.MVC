@@ -5,11 +5,29 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C#: CarWorkshop.MVC Debug",
-            "type": "dotnet",
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/CarWorkshop.MVC/CarWorkshop.MVC.csproj"
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/CarWorkshop.MVC/bin/Debug/net8.0/CarWorkshop.MVC.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/CarWorkshop.MVC",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
         }
-
     ]
 }
